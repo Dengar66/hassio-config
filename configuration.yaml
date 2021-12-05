@@ -1,0 +1,79 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+
+# Lovelace Dashboard Mode, remove to no longer use YAML
+lovelace:
+  mode: yaml
+  resources:
+    - url: /hacsfiles/sidebar-card/sidebar-card.js
+      type: module
+    - url: /hacsfiles/kiosk-mode/kiosk-mode.js
+      type: module
+    - url: /hacsfiles/lovelace-layout-card/layout-card.js
+      type: module
+    - url: /hacsfiles/spotify-card/spotify-card.js
+      type: module
+    - url: /hacsfiles/mini-media-player/mini-media-player-bundle.js
+      type: module
+    - url: /hacsfiles/button-card/button-card.js
+      type: module
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+# HTTPS
+http:
+  base_url: 
+  use_x_forwarded_for: true
+  trusted_proxies: 
+  ssl_certificate: /ssl/fullchain.pem
+  ssl_key: /ssl/privkey.pem
+  ip_ban_enabled: true
+  login_attempts_threshold: 3
+  
+frontend:
+  themes: !include_dir_merge_named themes
+
+# Google API
+google:
+  client_id: !secret google_client_id_calendar
+  client_secret: !secret google_client_secret_calendar
+
+# TPLink Config
+tplink:
+  discovery: true
+  
+# Spotify
+spotify:
+  client_id: !secret spotify_client_id
+  client_secret: !secret spotify_client_secret
+  
+# Spotcast
+spotcast:
+  sp_dc: !secret sp_dc
+  sp_key: !secret sp_key
+  
+sensor:
+  # Mosquito Tautulli
+  - platform: mqtt
+    name: tautulli_playing
+    state_topic: tautulli/playing
+    value_template: '{{ value_json.body }}'
+  - platform: mqtt
+    name: tautulli_media_type
+    state_topic: tautulli/type
+    value_template: '{{ value_json.body }}'
+  - platform: mqtt
+    name: firehd10_battery
+    state_topic: wallpanel/firehd10sensor/battery
+    value_template: '{{ value_json.value }}'
+    
+
