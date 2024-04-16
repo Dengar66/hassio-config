@@ -1,10 +1,11 @@
 title: Brindley
-#kiosk_mode:
-#    kiosk: true
 views:
-  - path: default_view
-    title: Home
-    icon: mdi:home-assistant
+  - !include views/base_tablet.yaml
+  - !include views/chores.yaml
+  - !include views/plants.yaml
+  - path: basement
+    title: Basement Lights
+    icon: mdi:lightbulb-group
     cards:
       - type: custom:layout-card
         layout_type: custom:masonry-layout
@@ -12,104 +13,65 @@ views:
           max_cols: 1
           width: 1200
         cards:
-          - type: horizontal-stack
+          - type: vertical-stack
             cards:
-              - type: calendar
-                entities:
-                  - calendar.paul_and_ash
-                initial_view: listWeek
-              - type: vertical-stack
+              - type: horizontal-stack
                 cards:
-                  - type: horizontal-stack
-                    cards:
-                      - type: vertical-stack
-                        cards:
-                          - type: entities
-                            entities:
-                              - person.paul
-                          - type: entities
-                            entities:
-                              - person.ashley
-                      - type: button
-                        tap_action:
-                          action: toggle
-                        entity: input_boolean.has_hazel_been_fed
-                        name: Hazel Fed?
-                        show_state: false
-                  - type: horizontal-stack
-                    cards:
-                      - type: light
-                        entity: light.ashleys_bedside_lamp
-                      - type: light
-                        entity: light.living_room_lamp
-                  - type: horizontal-stack
-                    cards:
-                      - type: vertical-stack
-                        cards:
-                          - type: button
-                            tap_action:
-                              action: toggle
-                            entity: switch.baby_yoda
-                          - type: button
-                            tap_action:
-                              action: toggle
-                            entity: switch.family_room_light
-                      - type: vertical-stack
-                        cards:
-                          - type: button
-                            tap_action:
-                              action: toggle
-                            entity: switch.wax_lamp
-                          - type: button
-                            tap_action:
-                              action: toggle
-                            entity: switch.guest_room
-                      - type: vertical-stack
-                        cards:
-                          - type: button
-                            tap_action:
-                              action: toggle
-                            entity: switch.mantle
-              - type: vertical-stack
+                  - type: custom:mushroom-light-card
+                    entity: light.cove_left
+                    icon: mdi:light-recessed
+                    use_light_color: true
+                    card_mod:
+                      style: |
+                        ha-card {
+                          --control-height: 12px;
+                        }
+                  - type: custom:mushroom-light-card
+                    entity: light.cove_middle
+                    icon: mdi:light-recessed
+                    use_light_color: true
+                  - type: custom:mushroom-light-card
+                    entity: light.cove_right
+                    icon: mdi:light-recessed
+                    use_light_color: true
+                  - type: custom:gap-card
+                    width: 100
+              - type: horizontal-stack
                 cards:
-                  - type: weather-forecast
-                    entity: weather.brindley
-                    show_forecast: true
-                  - type: custom:mini-media-player
-                    entity: media_player.spotify_home
-                    artwork: cover
-                    source: full
-                    hide:
-                      controls: false
-                      power: true
-                      runtime: true
-                      shuffle: false
-                      volume: false
-                    icon: mdi:spotify
-                    info: scroll
-                    name: Spotify
-                    shortcuts:
-                      buttons:
-                        - id: 'spotify:user:spotify:playlist:37i9dQZF1E385Lpa6pU5O1'
-                          name: Daily Mix 1
-                          type: playlist
-                        - id: 'spotify:user:wzwick:playlist:37i9dQZF1E3a80AcTsIVUl'
-                          name: Daily Mix 2
-                          type: playlist
-                        - artwork: cover
-                          id: 'spotify:user:spotify:playlist:37i9dQZF1DX0b1hHYQtJjp'
-                          name: Just Good Music
-                          type: playlist
-                        - id: 'spotify:user:spotify:playlist:37i9dQZF1DZ06evO25lU76'
-                          name: Quinn XCII
-                          type: playlist
-                        - id: 'spotify:user:spotify:playlist:37i9dQZF1DXdsy92d7BLpC'
-                          name: Weekend Vibes
-                          type: playlist
-                        - id: 'spotify:user:spotify:playlist:37i9dQZF1DWU13kKnk03AP'
-                          name: Daily Lift
-                          type: playlist
-                      columns: 2
+                  - type: custom:mushroom-light-card
+                    entity: light.strip_window
+                    icon: mdi:light-recessed
+                    use_light_color: true
+                  - type: custom:mushroom-light-card
+                    entity: light.strip_middle
+                    icon: mdi:light-recessed
+                    use_light_color: true
+                  - type: custom:mushroom-light-card
+                    entity: light.strip_stairs
+                    icon: mdi:light-recessed
+                    use_light_color: true
+                  - type: custom:mushroom-light-card
+                    entity: light.stair_bookcase
+                    icon: mdi:light-recessed
+                    use_light_color: true
+              - type: horizontal-stack
+                cards:
+                  - type: custom:mushroom-light-card
+                    entity: light.lego_right
+                    icon: mdi:light-recessed
+                    use_light_color: true
+                  - type: custom:mushroom-light-card
+                    entity: light.lego_left
+                    icon: mdi:light-recessed
+                    use_light_color: true
+                  - type: custom:mushroom-light-card
+                    entity: light.basement_couch
+                    icon: mdi:light-recessed
+                    use_light_color: true
+                  - type: custom:mushroom-light-card
+                    entity: light.basement_stairs
+                    icon: mdi:light-recessed
+                    use_light_color: true
   - path: spotify
     title: Spotify
     icon: mdi:spotify
@@ -148,7 +110,9 @@ views:
                       action: call-service
                       service: spotcast.start
                       service_data:
-                        spotify_device_id: 'cab05a58-4316-4ac3-826a-24fdcc4ca416'
+                        #spotify_device_id: |
+                        #  [[[ return entity.attributes.device; ]]]
+                        device_name: "Kitchen Echo Show"
                         uri: |
                           [[[ return entity.attributes.url; ]]]
                   - type: 'custom:button-card'
@@ -175,7 +139,9 @@ views:
                       action: call-service
                       service: spotcast.start
                       service_data:
-                        spotify_device_id: 'cab05a58-4316-4ac3-826a-24fdcc4ca416'
+                        #spotify_device_id: |
+                        #  [[[ return entity.attributes.device; ]]]
+                        device_name: "Kitchen Echo Show"
                         uri: |
                           [[[ return entity.attributes.url; ]]]
                   - type: 'custom:button-card'
@@ -202,7 +168,9 @@ views:
                       action: call-service
                       service: spotcast.start
                       service_data:
-                        spotify_device_id: 'cab05a58-4316-4ac3-826a-24fdcc4ca416'
+                        #spotify_device_id: |
+                        #  [[[ return entity.attributes.device; ]]]
+                        device_name: "Kitchen Echo Show"
                         uri: |
                           [[[ return entity.attributes.url; ]]]
                   - type: 'custom:button-card'
@@ -229,7 +197,9 @@ views:
                       action: call-service
                       service: spotcast.start
                       service_data:
-                        spotify_device_id: 'cab05a58-4316-4ac3-826a-24fdcc4ca416'
+                        #spotify_device_id: |
+                        #  [[[ return entity.attributes.device; ]]]
+                        device_name: "Kitchen Echo Show"
                         uri: |
                           [[[ return entity.attributes.url; ]]]
                   - type: 'custom:button-card'
@@ -256,7 +226,9 @@ views:
                       action: call-service
                       service: spotcast.start
                       service_data:
-                        spotify_device_id: 'cab05a58-4316-4ac3-826a-24fdcc4ca416'
+                        #spotify_device_id: |
+                        #  [[[ return entity.attributes.device; ]]]
+                        device_name: "Kitchen Echo Show"
                         uri: |
                           [[[ return entity.attributes.url; ]]]
               - type: horizontal-stack
@@ -285,7 +257,9 @@ views:
                       action: call-service
                       service: spotcast.start
                       service_data:
-                        spotify_device_id: 'cab05a58-4316-4ac3-826a-24fdcc4ca416'
+                        #spotify_device_id: |
+                        #  [[[ return entity.attributes.device; ]]]
+                        device_name: "Kitchen Echo Show"
                         uri: |
                           [[[ return entity.attributes.url; ]]]
                   - type: 'custom:button-card'
@@ -312,7 +286,9 @@ views:
                       action: call-service
                       service: spotcast.start
                       service_data:
-                        spotify_device_id: 'cab05a58-4316-4ac3-826a-24fdcc4ca416'
+                        #spotify_device_id: |
+                        #  [[[ return entity.attributes.device; ]]]
+                        device_name: "Kitchen Echo Show"
                         uri: |
                           [[[ return entity.attributes.url; ]]]
                   - type: 'custom:button-card'
@@ -339,7 +315,9 @@ views:
                       action: call-service
                       service: spotcast.start
                       service_data:
-                        spotify_device_id: 'cab05a58-4316-4ac3-826a-24fdcc4ca416'
+                        #spotify_device_id: |
+                        #  [[[ return entity.attributes.device; ]]]
+                        device_name: "Kitchen Echo Show"
                         uri: |
                           [[[ return entity.attributes.url; ]]]
                   - type: 'custom:button-card'
@@ -366,7 +344,9 @@ views:
                       action: call-service
                       service: spotcast.start
                       service_data:
-                        spotify_device_id: 'cab05a58-4316-4ac3-826a-24fdcc4ca416'
+                        #spotify_device_id: |
+                        #  [[[ return entity.attributes.device; ]]]
+                        device_name: "Kitchen Echo Show"
                         uri: |
                           [[[ return entity.attributes.url; ]]]
                   - type: 'custom:button-card'
@@ -393,7 +373,9 @@ views:
                       action: call-service
                       service: spotcast.start
                       service_data:
-                        spotify_device_id: 'cab05a58-4316-4ac3-826a-24fdcc4ca416'
+                        #spotify_device_id: |
+                        #  [[[ return entity.attributes.device; ]]]
+                        device_name: "Kitchen Echo Show"
                         uri: |
                           [[[ return entity.attributes.url; ]]]
               - type: horizontal-stack
@@ -412,16 +394,135 @@ views:
                       shuffle: false
                       volume: false
                     info: scroll
-  - path: power
-    title: Homelab Power Usage
-    icon: mdi:flash
-    panel: true
-    badges: []
+                    style: |
+                      ha-card {
+                        height: 250px;
+                      }
+  - path: mail
+    title: Mail
+    icon: mdi:mailbox
     cards:
-      - type: iframe
-        url: >-
-          https://grafana.pkh.icu/d/Xngf_ABGk/ipad-nut-ups-dashboard?orgId=1&refresh=1h
-        aspect_ratio: 50%
+      - type: custom:mail-and-packages-card
+        name: Mail Summary
+        updated: sensor.mail_updated
+        details: true
+        image: false
+        packages_in_transit: sensor.mail_packages_in_transit
+        packages_delivered: sensor.mail_packages_delivered
+        fedex_packages: sensor.mail_fedex_packages
+        ups_packages: sensor.mail_ups_packages
+        usps_packages: sensor.mail_usps_packages
+        amazon_packages: sensor.mail_amazon_packages
+        camera_entity: camera.mail_usps_camera
+        usps_mail: sensor.mail_usps_mail
+        style: |
+          ha-card {
+            width: 1000px;
+          }
+  - path: security
+    title: Security
+    icon: mdi:cctv
+    cards:
+      - type: custom:layout-card
+        layout_type: custom:masonry-layout
+        layout:
+          max_cols: 1
+          width: 1200
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: horizontal-stack
+                cards:
+                  - type: picture-entity
+                    entity: camera.blink_front_porch
+                    image: https://demo.home-assistant.io/stub_config/bedroom.png
+                    camera_image: camera.blink_front_porch
+                    tap_action:
+                      action: call-service
+                      service: blink.trigger_camera
+                      service_data: {}
+                      target:
+                        entity_id: camera.blink_front_porch
+                    show_state: false
+                    name: Front Porch
+                  - type: picture-entity
+                    entity: camera.blink_driveway
+                    image: https://demo.home-assistant.io/stub_config/bedroom.png
+                    name: Driveway
+                    camera_image: camera.blink_driveway
+                    show_state: false
+                    tap_action:
+                      action: call-service
+                      service: blink.trigger_camera
+                      service_data: {}
+                      target: {}
+                  - type: picture-entity
+                    entity: camera.blink_back_porch
+                    show_state: false
+                    name: Back Porch
+                    camera_image: camera.blink_back_porch
+                    tap_action:
+                      action: call-service
+                      service: script.202205212347
+              - type: horizontal-stack
+                cards:
+                  - type: custom:mushroom-title-card
+                    title: ''
+                  - type: custom:mushroom-title-card
+                    title: 'Camera Battery Status'
+                  - type: custom:mushroom-title-card
+                    title: 'Camera WiFi Signal'
+              - type: horizontal-stack
+                cards:
+                  - type: alarm-panel
+                    states:
+                      - arm_home
+                    entity: alarm_control_panel.blink_home
+                    name: Blink Cameras
+                  - show_name: true
+                    show_icon: true
+                    show_state: true
+                    type: glance
+                    entities:
+                      - entity: binary_sensor.blink_front_porch_battery
+                        name: Front Porch
+                      - entity: binary_sensor.blink_driveway_battery
+                        name: Driveway
+                      - entity: binary_sensor.blink_back_porch_battery
+                        name: Back Porch
+                      - entity: binary_sensor.blink_garage_battery
+                        name: Garage
+                    columns: 4
+                  - show_name: true
+                    show_icon: true
+                    show_state: true
+                    type: glance
+                    entities:
+                      - entity: sensor.blink_front_porch_wifi_signal
+                        name: Front Porch
+                      - entity: sensor.blink_driveway_wifi_signal
+                        name: Driveway
+                      - entity: sensor.blink_back_porch_wifi_signal
+                        name: Back Porch
+                      - entity: sensor.blink_garage_wifi_signal
+                        name: Garage
+                    columns: 4
+                    state_color: false
+              - type: horizontal-stack
+                cards:
+                  - type: custom:mushroom-title-card
+                    title: 'Last Motion Detected'
+                  #- type: 
+#  - path: power
+#    title: Homelab Power Usage
+#    icon: mdi:flash
+#    panel: true
+#    badges: []
+#    cards:
+#      - type: iframe
+#        url: >-
+#          https://grafana.pkh.icu/d/Xngf_ABGk/ipad-nut-ups-dashboard?orgId=1&refresh=1h
+#        aspect_ratio: 50%
   - path: map
     title: Map
     icon: mdi:map-marker-radius
@@ -435,63 +536,7 @@ views:
         hours_to_show: 6
       - type: map
         entities:
-          - entity: device_tracker.iphone
+          - entity: device_tracker.ashley_s_iphone
         title: ASHLEY
         default_zoom: 12
         hours_to_show: 6
-  - path: nas
-    title: NAS
-    icon: mdi:nas
-    badges: []
-    cards:
-      - type: glance
-        entities:
-          - entity: binary_sensor.jeditemple_drive_1_below_min_remaining_life
-          - entity: binary_sensor.jeditemple_drive_1_exceeded_max_bad_sectors
-          - entity: binary_sensor.jeditemple_drive_2_below_min_remaining_life
-          - entity: binary_sensor.jeditemple_drive_2_exceeded_max_bad_sectors
-          - entity: binary_sensor.jeditemple_drive_3_below_min_remaining_life
-          - entity: binary_sensor.jeditemple_drive_3_exceeded_max_bad_sectors
-          - entity: binary_sensor.jeditemple_drive_4_below_min_remaining_life
-          - entity: binary_sensor.jeditemple_drive_4_exceeded_max_bad_sectors
-        columns: 2
-        state_color: true
-        title: Synology Drive Status
-      - type: sensor
-        entity: sensor.jeditemple_cpu_load_5_min
-        graph: line
-      - type: sensor
-        entity: sensor.jeditemple_cpu_load_15_min
-        graph: line
-      - type: sensor
-        entity: sensor.jeditemple_cpu_load_total
-        graph: line
-      - type: entity
-        entity: binary_sensor.jeditemple_update_available
-      - type: entity
-        entity: binary_sensor.jeditemple_security_status
-      - type: entities
-        entities:
-          - entity: sensor.tripplite_1500_status
-          - entity: sensor.tripplite_1500_load
-          - entity: sensor.tripplite1_battery_charge
-          - entity: sensor.tripplite_1500_battery_runtime
-        title: Basement
-      - type: entity
-        entity: binary_sensor.updater
-        title: Home Assistant Update
-  - path: plex
-    title: TESTING
-    badges: []
-    cards:
-      - type: entity
-        entity: sensor.tautulli_media_type
-      - type: entity
-        entity: sensor.tautulli_playing
-      - type: button
-        tap_action:
-          action: toggle
-        entity: media_player.home_theater
-        show_state: true
-      - type: entity
-        entity: sensor.firehd10_battery

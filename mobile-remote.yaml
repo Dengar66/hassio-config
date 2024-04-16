@@ -1,0 +1,3 @@
+title: Mobile App Remote
+views:
+  - !include views/remote.yaml

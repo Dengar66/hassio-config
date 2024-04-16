@@ -2,6 +2,9 @@
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
 
+homeassistant:
+  whitelist_external_dirs:
+    - '/share'
 
 # Lovelace Dashboard Mode, remove to no longer use YAML
 lovelace:
@@ -19,6 +22,29 @@ lovelace:
       type: module
     - url: /hacsfiles/button-card/button-card.js
       type: module
+    - url: /hacsfiles/Home-Assistant-Mail-And-Packages-Custom-Card/Home-Assistant-Mail-And-Packages-Custom-Card.js
+      type: module
+    - url: /hacsfiles/atomic-calendar-revive/atomic-calendar-revive.js
+      type: module
+    - url: /hacsfiles/lovelace-mushroom/mushroom.js
+      type: module
+    - url: /hacsfiles/lovelace-thermostat-dark-card/thermostat-dark-card.js
+      type: module
+    - url: /hacsfiles/Bubble-Card/bubble-card.js
+      type: module
+  dashboards:
+    mobile-remote:
+      mode: yaml
+      title: Remote
+      icon: mdi:remote-tv
+      show_in_sidebar: true
+      filename: mobile-remote.yaml
+    lovelace-yaml:
+      mode: yaml
+      title: YAML
+      icon: mdi:script
+      show_in_sidebar: true
+      filename: dashboards.yaml
 
 # Text to speech
 tts:
@@ -31,49 +57,60 @@ scene: !include scenes.yaml
 
 # HTTPS
 http:
-  base_url: 
   use_x_forwarded_for: true
-  trusted_proxies: 
-  ssl_certificate: /ssl/fullchain.pem
-  ssl_key: /ssl/privkey.pem
+  trusted_proxies:
+    - 10.0.1.13
+    - 10.0.1.14
+    - 10.0.1.15
+    - 10.0.1.16
+    - 10.0.1.66
   ip_ban_enabled: true
-  login_attempts_threshold: 3
+  login_attempts_threshold: 2
   
 frontend:
   themes: !include_dir_merge_named themes
+  extra_module_url:
+    - /hacsfiles/lovelace-card-mod/card-mod.js
 
-# Google API
-google:
-  client_id: !secret google_client_id_calendar
-  client_secret: !secret google_client_secret_calendar
-
-# TPLink Config
-tplink:
-  discovery: true
-  
-# Spotify
-spotify:
-  client_id: !secret spotify_client_id
-  client_secret: !secret spotify_client_secret
-  
 # Spotcast
 spotcast:
   sp_dc: !secret sp_dc
   sp_key: !secret sp_key
   
-sensor:
-  # Mosquito Tautulli
-  - platform: mqtt
-    name: tautulli_playing
-    state_topic: tautulli/playing
-    value_template: '{{ value_json.body }}'
-  - platform: mqtt
-    name: tautulli_media_type
-    state_topic: tautulli/type
-    value_template: '{{ value_json.body }}'
-  - platform: mqtt
-    name: firehd10_battery
-    state_topic: wallpanel/firehd10sensor/battery
-    value_template: '{{ value_json.value }}'
-    
+alexa:
+  smart_home:
 
+# Mosquito Tautulli
+mqtt:
+  sensor:
+    - name: tautulli_playing
+      state_topic: tautulli/playing
+      value_template: '{{ value_json.body }}'
+    - name: tautulli_media_type
+      state_topic: tautulli/type
+      value_template: '{{ value_json.body }}'
+    - name: firehd10_battery
+      state_topic: wallpanel/firehd10sensor/battery
+      value_template: '{{ value_json.value }}'
+
+sensor:
+  - platform: time_date
+    display_options:
+      - 'time'
+      - 'date'
+      - 'date_time'
+      - 'time_date'
+
+template:
+  - sensor:
+      - name: 'Spotify Echo Show'
+        state: '7df31662-59b2-40dd-8725-f718c098014e'
+  - sensor:
+      - name: 'harmony_yamaha'
+        state: '74567895'
+  - sensor:
+      - name: 'harmony_lgc2'
+        state: '78917962'
+  - sensor:
+      - name: 'harmony_appletv'
+        state: '79006490'

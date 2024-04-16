@@ -1,0 +1,112 @@
+path: plants
+title: Plants
+icon: mdi:sprout
+cards:
+  - type: custom:layout-card
+    layout_type: custom:masonry-layout
+    layout:
+      max_cols: 5
+      width: 1200
+    cards:
+      - type: horizontal-stack
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: custom:button-card
+                show_entity_picture: true
+                entity: input_boolean.water_tomatoes
+                styles:
+                  card:
+                    - width: 200px
+                    - height: 200px
+                show_name: false
+                tap_action:
+                  action: toggle
+                state:
+                  - entity_picture: /local/images/plants/watercan.png
+                    value: 'off'
+                  - entity_picture: /local/images/plants/cherrytomato.png
+                    value: 'on'
+              - type: custom:mushroom-title-card
+                title: >-
+                  {{ as_timestamp(states('input_datetime.last_tomatoes')) | timestamp_custom("Last:\n%A") }}
+          - type: vertical-stack
+            cards:
+              - type: custom:button-card
+                show_entity_picture: true
+                entity: input_boolean.water_strawberries
+                styles:
+                  card:
+                    - width: 200px
+                    - height: 200px
+                show_name: false
+                tap_action:
+                  action: toggle
+                state:
+                  - entity_picture: /local/images/plants/watercan.png
+                    value: 'off'
+                  - entity_picture: /local/images/plants/strawb.png
+                    value: 'on'
+              - type: custom:mushroom-title-card
+                title: >-
+                  {{ as_timestamp(states('input_datetime.last_strawberries')) | timestamp_custom("Last:\n%A") }}
+          - type: vertical-stack
+            cards:
+              - type: custom:button-card
+                show_entity_picture: true
+                entity: input_boolean.water_peppers
+                styles:
+                  card:
+                    - width: 200px
+                    - height: 200px
+                show_name: false
+                tap_action:
+                  action: toggle
+                state:
+                  - entity_picture: /local/images/plants/watercan.png
+                    value: 'off'
+                  - entity_picture: /local/images/plants/pepper.png
+                    value: 'on'
+              - type: custom:mushroom-title-card
+                title: >-
+                  {{ as_timestamp(states('input_datetime.last_peppers')) | timestamp_custom("Last:\n%A") }}
+          - type: vertical-stack
+            cards:
+              - type: custom:button-card
+                show_entity_picture: true
+                entity: input_boolean.water_peas
+                styles:
+                  card:
+                    - width: 200px
+                    - height: 200px
+                show_name: false
+                tap_action:
+                  action: toggle
+                state:
+                  - entity_picture: /local/images/plants/watercan.png
+                    value: 'off'
+                  - entity_picture: /local/images/plants/peas.png
+                    value: 'on'
+              - type: custom:mushroom-title-card
+                title: >-
+                  {{ as_timestamp(states('input_datetime.last_peas')) | timestamp_custom("Last:\n%A") }}
+          - type: vertical-stack
+            cards:
+              - type: custom:button-card
+                show_entity_picture: true
+                entity: input_boolean.water_carrots
+                styles:
+                  card:
+                    - width: 200px
+                    - height: 200px
+                show_name: false
+                tap_action:
+                  action: toggle
+                state:
+                  - entity_picture: /local/images/plants/watercan.png
+                    value: 'off'
+                  - entity_picture: /local/images/plants/carrots.png
+                    value: 'on'
+              - type: custom:mushroom-title-card
+                title: >-
+                  {{ as_timestamp(states('input_datetime.last_carrots')) | timestamp_custom("Last:\n%A") }}

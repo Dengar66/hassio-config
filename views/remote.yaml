@@ -1,0 +1,290 @@
+path: remote
+title: Remote
+icon: mdi:remote-tv
+cards:
+  - type: vertical-stack
+    cards:
+      # Row 1
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            icon: mdi:power
+            color_type: icon
+            color: rgb(0,255,0)
+            tap_action:
+              action: call-service
+              service: remote.turn_on
+              target:
+                entity_id: remote.harmony_hub
+              data:
+                activity: "The Telly"
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: transparent;
+                  box-shadow: none;
+                }
+          - type: custom:gap-card
+          - type: custom:button-card
+            icon: mdi:power
+            color_type: icon
+            color: rgb(255,0,0)
+            tap_action:
+              action: call-service
+              service: remote.turn_on
+              target:
+                entity_id: remote.harmony_hub
+              data:
+                activity: "PowerOff"
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: transparent;
+                  box-shadow: none;
+                }
+      - type: custom:gap-card
+        height: 20
+      # Row 2
+      - type: horizontal-stack
+        cards:
+          - type: custom:gap-card
+          - type: custom:button-card
+            icon: mdi:chevron-up-circle-outline
+            size: 80%
+            tap_action:
+              action: call-service
+              service: remote.send_command
+              target:
+                entity_id: remote.harmony_hub
+              data:
+                device: Apple TV Gen 2/3
+                command: DirectionUp
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: transparent;
+                  box-shadow: none;
+                  height: 120px !important;
+                }
+          - type: custom:gap-card
+      # Row 3
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            icon: mdi:chevron-left-circle-outline
+            size: 80%
+            tap_action:
+              action: call-service
+              service: remote.send_command
+              target:
+                entity_id: remote.harmony_hub
+              data:
+                device: Apple TV Gen 2/3
+                command: DirectionLeft
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: transparent;
+                  box-shadow: none;
+                  height: 120px !important;
+                }
+          - type: custom:button-card
+            icon: mdi:radiobox-marked
+            size: 80%
+            tap_action:
+              action: call-service
+              service: remote.send_command
+              target:
+                entity_id: remote.harmony_hub
+              data:
+                device: Apple TV Gen 2/3
+                command: Select
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: transparent;
+                  box-shadow: none;
+                  height: 120px !important;
+                }
+          - type: custom:button-card
+            icon: mdi:chevron-right-circle-outline
+            size: 80%
+            tap_action:
+              action: call-service
+              service: remote.send_command
+              target:
+                entity_id: remote.harmony_hub
+              data:
+                device: Apple TV Gen 2/3
+                command: DirectionRight
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: transparent;
+                  box-shadow: none;
+                  height: 120px !important;
+                }
+      # Row 4
+      - type: horizontal-stack
+        cards:
+          - type: custom:gap-card
+          - type: custom:button-card
+            icon: mdi:chevron-down-circle-outline
+            size: 80%
+            tap_action:
+              action: call-service
+              service: remote.send_command
+              target:
+                entity_id: remote.harmony_hub
+              data:
+                device: Apple TV Gen 2/3
+                command: DirectionDown
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: transparent;
+                  box-shadow: none;
+                  height: 120px !important;
+                }
+          - type: custom:gap-card
+      # Row 5
+      - type: horizontal-stack
+        cards:
+          - type: vertical-stack
+            cards:
+              - type: custom:gap-card
+                height: 30
+              - type: custom:button-card
+                icon: mdi:keyboard-return
+                size: 60%
+                tap_action:
+                  action: call-service
+                  service: remote.send_command
+                  target:
+                    entity_id: remote.harmony_hub
+                  data:
+                    device: Apple TV Gen 2/3
+                    command: Back
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: transparent;
+                      box-shadow: none;
+                      height: 100px !important;
+                    }
+              - type: custom:gap-card
+                height: 30
+          - type: vertical-stack
+            cards:
+              - type: custom:gap-card
+                height: 30
+              - type: custom:button-card
+                icon: mdi:play-pause
+                size: 60%
+                tap_action:
+                  action: call-service
+                  service: remote.send_command
+                  target:
+                    entity_id: remote.harmony_hub
+                  data:
+                    device: Apple TV Gen 2/3
+                    command: Pause
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: transparent;
+                      box-shadow: none;
+                      height: 100px !important;
+                    }
+              - type: custom:gap-card
+                height: 30
+          - type: vertical-stack
+            cards:
+              - type: custom:button-card
+                icon: mdi:volume-plus
+                size: 100%
+                tap_action:
+                  action: call-service
+                  service: remote.send_command
+                  target:
+                    entity_id: remote.harmony_hub
+                  data:
+                    device: Yamaha AV Receiver
+                    command: VolumeUp
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: transparent;
+                      box-shadow: none;
+                      height: 80px !important;
+                    }
+              - type: custom:button-card
+                icon: mdi:volume-minus
+                size: 100%
+                tap_action:
+                  action: call-service
+                  service: remote.send_command
+                  target:
+                    entity_id: remote.harmony_hub
+                  data:
+                    device: Yamaha AV Receiver
+                    command: VolumeDown
+                card_mod:
+                  style: |
+                    ha-card {
+                      background-color: transparent;
+                      box-shadow: none;
+                      height: 80px !important;
+                    }
+      # Row 6
+      - type: horizontal-stack
+        cards:
+          - type: custom:button-card
+            icon: mdi:skip-previous
+            tap_action:
+              action: call-service
+              service: remote.send_command
+              target:
+                entity_id: remote.harmony_hub
+              data:
+                device: Apple TV Gen 2/3
+                command: SkipBack
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: transparent;
+                  box-shadow: none;
+                }
+          - type: custom:button-card
+            icon: mdi:menu-open
+            tap_action:
+              action: call-service
+              service: remote.send_command
+              target:
+                entity_id: remote.harmony_hub
+              data:
+                device: Apple TV Gen 2/3
+                command: Menu
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: transparent;
+                  box-shadow: none;
+                }
+          - type: custom:button-card
+            icon: mdi:skip-next
+            tap_action:
+              action: call-service
+              service: remote.send_command
+              target:
+                entity_id: remote.harmony_hub
+              data:
+                device: Apple TV Gen 2/3
+                command: SkipForward
+            card_mod:
+              style: |
+                ha-card {
+                  background-color: transparent;
+                  box-shadow: none;
+                }
+
